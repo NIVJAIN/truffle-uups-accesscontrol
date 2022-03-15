@@ -75,7 +75,8 @@
 1. cp -rf migrations_v1v2/* migrations
 2. cp -rf contracts_v1v2/* contracts
 3. v1 = await DLTSCBTokenV2.deployed()
-4. v1.address (address deployed in v1 should be same as address deployed in v2)
+4. v1.address (address deployed in v1 should be same as address deployed in v2) 0x4509a84CE78898249Ed62Bc9f16Fe99BF55cfF2F
+5. v1.getCount()
 ```
 
 ### TRUFFLE CONSOLE COMMANDS TESTING access control
