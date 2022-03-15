@@ -33,6 +33,51 @@
 4. npm run ganache
 ```
 
+### Smart Contract V1 functions
+```
+1. increment() //onlyRole(USER_ROLE) accounts[5] && accounts[0]
+2. getCount()  //public any user
+3. setText()   //public any user
+ ```
+### Smart Contract V2 functions (UUPS Proxy Pattern upgradable smart contract)
+```
+1. increment() //onlyRole(USER_ROLE) accounts[5] && accounts[0]
+2. getCount()  //onlyRole(USER_ROLE) accounts[5] && accounts[0]
+3. setText()   //public any user
+4. decrement() //onlyRole(USER_ROLE) accounts[5] && accounts[0]
+5. getText()  //public any user
+6. mint()     //onlyRole(MINTER_ROLE) accounts[2] && accounts[0]
+```
+
+### Deploy V1
+```
+1. cp -rf migration_v1 to migration
+2. truffle compile --all && truffle migrate --network ganache
+2. truffle console --network ganache
+2. v1 = await DLTSCBTokenV1.deployed()
+2. v1.address (note down the address) 0x4509a84CE78898249Ed62Bc9f16Fe99BF55cfF2F
+3. Adding user to USER_ROLE to access the methods (add accounts[5])
+4. (await v1.addUserRole(accounts[5],{from: accounts[0]})) 
+5. Check if the USER_ROLE is added to Blockchain
+6. (await v1.isUserRole(accounts[5]))
+7.Test other non USER_ROLE and check if it return false
+8. (await v1.isUserRole(accounts[6]))
+9 (await v1.getCount())
+10. Increment with non USER_ROLE accounts[6]
+11.(await v1.increment({from: accounts[6]})) 
+12. Increment with USER_ROLE accounts[5]
+13. (await v1.increment({from: accounts[5]}))
+14. (await v1.getCount())
+15 note down the total count as we will deploy V2 Version
+```
+### Deploy V2
+```
+1. cp -rf migrations_v1v2/* migrations
+2. cp -rf contracts_v1v2/* contracts
+3. v1 = await DLTSCBTokenV2.deployed()
+4. v1.address (address deployed in v1 should be same as address deployed in v2)
+```
+
 ### TRUFFLE CONSOLE COMMANDS TESTING access control
 ```
 npx truffle console --network ganache

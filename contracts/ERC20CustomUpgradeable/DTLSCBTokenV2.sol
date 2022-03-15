@@ -7,7 +7,7 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-contract DLTSCBTokenV1 is Initializable, ERC20Upgradeable, ERC20BurnableUpgradeable, AccessControlUpgradeable, UUPSUpgradeable {
+contract DLTSCBTokenV2 is Initializable, ERC20Upgradeable, ERC20BurnableUpgradeable, AccessControlUpgradeable, UUPSUpgradeable {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
     bytes32 public constant USER_ROLE = keccak256("USER_ROLE");
@@ -45,9 +45,19 @@ contract DLTSCBTokenV1 is Initializable, ERC20Upgradeable, ERC20BurnableUpgradea
     function setText(string memory _setText) public {
         setMessage = _setText;
     }
-  // Not necessary getter to get the count value
-    function getCount() public view returns (uint256) {
+      // Not necessary getter to get the count value
+    function getCount() public onlyRole(USER_ROLE) view returns (uint256)  {
         return count;
+    }
+    // Function that increments our counter
+    function decrement() public onlyRole(USER_ROLE) {
+        count--;
+    }
+    function getText() public view returns(string memory) {
+        return(setMessage);
+    }
+    function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
+        _mint(to, amount);
     }
 
 
@@ -62,17 +72,30 @@ contract DLTSCBTokenV1 is Initializable, ERC20Upgradeable, ERC20BurnableUpgradea
    function isUserRole(address account) public view returns (bool) {
         return hasRole(USER_ROLE, account);
     }
- 
-    function addMinterRole (address account) public onlyRole(DEFAULT_ADMIN_ROLE) {
+     function addMinterRole (address account) public onlyRole(DEFAULT_ADMIN_ROLE) {
         grantRole(MINTER_ROLE, account);
     }
   
     function isMinterRole(address account) public view returns (bool) {
         return hasRole(MINTER_ROLE, account);
     }
+  
     function revokeUserRole (address _account) public onlyRole(DEFAULT_ADMIN_ROLE) {
         _revokeRole(USER_ROLE, _account);
     }
+
+  
+ 
+
+  
+//  // Not necessary getter to get the count value restricted
+//     function getCount2() public onlyRole(USER_ROLE) view returns (uint256) {
+//         return count;
+//     }
+  
+//     function decrement2() public onlyRole(USER_ROLE) {
+//         count--;
+//     }
 
     function _authorizeUpgrade(address newImplementation)
         internal
