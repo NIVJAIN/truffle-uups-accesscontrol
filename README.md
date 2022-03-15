@@ -51,11 +51,12 @@
 
 ### Deploy V1
 ```
-1. cp -rf migration_v1 to migration
+1. cp -rf migrations_v1 to migrations
+1. cp -rf contracts_v1 to contracts
 2. truffle compile --all && truffle migrate --network ganache
 2. truffle console --network ganache
 2. v1 = await DLTSCBTokenV1.deployed()
-2. v1.address (note down the address) 0x4509a84CE78898249Ed62Bc9f16Fe99BF55cfF2F
+2. v1.address (note down the address) 0x7165F7cfF6A1Ca50BA7518d38023ff289D9D2AB1
 3. Adding user to USER_ROLE to access the methods (add accounts[5])
 4. (await v1.addUserRole(accounts[5],{from: accounts[0]})) 
 5. Check if the USER_ROLE is added to Blockchain
@@ -75,7 +76,7 @@
 1. cp -rf migrations_v1v2/* migrations
 2. cp -rf contracts_v1v2/* contracts
 3. v1 = await DLTSCBTokenV2.deployed()
-4. v1.address (address deployed in v1 should be same as address deployed in v2) 0x4509a84CE78898249Ed62Bc9f16Fe99BF55cfF2F
+4. v1.address (address deployed in v1 should be same as address deployed in v2) 0x7165F7cfF6A1Ca50BA7518d38023ff289D9D2AB1
 5. v1.getCount()
 ```
 
