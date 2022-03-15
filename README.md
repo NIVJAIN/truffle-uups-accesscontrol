@@ -69,4 +69,27 @@ v2.address
 (await v2.increment()) x 5
 ```
 
+###
+```
+{
+    makerlist: ["1638809", "1630029", "1630025"],
+    checkerlist: ["1638810", "1630030", "1630026"],
+    adminlist: ["1630025"]
+}
+```
+
+### Asset
+```
+create asset by maker
+assetName: SG-BONDS-WM
+assetTotalSupply: 10000
+makerId : 5
+bondNominalValue: 1000
+TokenNominalValue:10000
+createAssetTimeByMaker: date
+
+approve asset by maker
+
+```
+
 
